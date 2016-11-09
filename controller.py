@@ -23,7 +23,7 @@ class Controller:
             pass
 
         def datagram_received(self, data, addr):
-            logging.info('data from {}: {}'.format(addr, data))
+            # logging.info('data from {}: {}'.format(addr, data))
 
             fields = data.decode().split()
             if fields[0] != "hb" or len(fields) < 2:
@@ -42,6 +42,9 @@ class Controller:
             self.transport = transport
             self.peername = self.transport.get_extra_info('peername')
             logging.info('new connection to {}'.format(self.peername))
+
+        def error_received(self, error):
+            logging.error('error received: {}'.format(error))
 
         def write(self, msgStr):
             if self.transport:
@@ -114,7 +117,7 @@ class Controller:
             self.eventloop.call_later(3, self.sendHeartbeat)
         else:
             logging.info("Starting as server")
-            coroutine = self.eventloop.create_datagram_endpoint(lambda: Controller.ServerProtocol(self), local_addr=('127.0.0.1', self.port))
+            coroutine = self.eventloop.create_datagram_endpoint(lambda: Controller.ServerProtocol(self), local_addr=('0.0.0.0', self.port))
             self.eventloop.call_later(4, self.checkTimeouts)
 
         self.eventloop.run_until_complete(coroutine)  # starts connection in the background
