@@ -117,7 +117,7 @@ class Controller:
             coroutine = self.eventloop.create_datagram_endpoint(lambda: Controller.ServerProtocol(self), local_addr=('127.0.0.1', self.port))
             self.eventloop.call_later(4, self.checkTimeouts)
 
-        asyncio.ensure_future(coroutine, loop=self.eventloop)  # starts connection in the background
+        self.eventloop.run_until_complete(coroutine)  # starts connection in the background
 
 
         self.eventloop.run_forever()
