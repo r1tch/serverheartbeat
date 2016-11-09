@@ -14,4 +14,7 @@ Use the enclosed minipex.sh script to create a binary. It just needs to be run
 
 Also make sure the server has a working email server.
 
+## Caveats
 
+This script is intentionally very basic, all timeouts, logfile location, etc
+hardcoded. Fits the purpose though :)
