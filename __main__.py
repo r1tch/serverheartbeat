@@ -20,7 +20,6 @@ def initLog(log_file, log_level):
                         level=log_level,
                         format=log_format,
                         datefmt=log_datefmt)
-    return # TODO console-log configable
     try:
         logging.basicConfig(filename=log_file,
                             level=log_level,
