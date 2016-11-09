@@ -16,16 +16,13 @@ def initLog(log_file, log_level):
 
     log_format = '%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s'
     log_datefmt = '%Y-%m-%d %H:%M:%S'
-    logging.basicConfig(stream=sys.stdout,
-                        level=log_level,
-                        format=log_format,
-                        datefmt=log_datefmt)
     try:
         logging.basicConfig(filename=log_file,
                             level=log_level,
                             format=log_format,
                             datefmt=log_datefmt)
     except OSError:  # we prepare for read-only filesystem here, fall back to console:
+        print("Logging: fallback to stdout")
         logging.basicConfig(stream=sys.stdout,
                             level=log_level,
                             format=log_format,
