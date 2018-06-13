@@ -90,7 +90,7 @@ class Controller:
         now = time.time()
         todelete = set()
         for client_id in self.lastSeenTimes.keys():
-            if now - self.lastSeenTimes[client_id] > 4:
+            if now - self.lastSeenTimes[client_id] > 30:
                 logging.info("Client {} is down.".format(client_id))
                 self.sendMail(client_id, "DOWN")
                 todelete.add(client_id)
